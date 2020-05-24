@@ -2,6 +2,8 @@ package com.aaron.kotlindemo.base
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.aaron.kotlindemo.AutowiredHelper
@@ -162,11 +164,30 @@ interface Scheduler {
 
     fun <T> publish(any: T) {
         subscribers.filter { (key, _) -> key.isInstance(any) }
-            .forEach { (_, value) ->
-                value.forEach {
-                    @Suppress("UNCHECKED_CAST")
-                    (it as (any: T) -> Unit)(any)
+                .forEach { (_, value) ->
+                    value.forEach {
+                        @Suppress("UNCHECKED_CAST")
+                        (it as (any: T) -> Unit)(any)
+                    }
                 }
-            }
     }
+}
+
+private lateinit var handler: Handler
+val BaseActivity.uiHandler: Handler
+    get() {
+        handler = Handler(Looper.getMainLooper())
+        return handler
+    }
+
+operator fun Handler.invoke(block: () -> Unit) {
+    post(block)
+}
+
+operator fun Handler.invoke(delay: Long, block: () -> Unit) {
+    postDelayed(block, delay)
+}
+
+operator fun <T> T.invoke(block: T.() -> Unit) {
+    block()
 }

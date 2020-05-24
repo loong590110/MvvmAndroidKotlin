@@ -2,9 +2,10 @@ package com.aaron.kotlindemo
 
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
-import androidx.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil.setContentView
 import com.aaron.kotlindemo.base.BaseActivity
+import com.aaron.kotlindemo.base.invoke
+import com.aaron.kotlindemo.base.uiHandler
 import com.aaron.kotlindemo.databinding.ActivitySplashBinding
 
 /**
@@ -14,21 +15,20 @@ class SplashActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: ActivitySplashBinding = DataBindingUtil.setContentView(
+        setContentView<ActivitySplashBinding>(
             this, R.layout.activity_splash
-        )
-        binding.apply {
-            txtTitle.apply {
+        ).apply {
+            txtTitle {
                 text = "splash"
                 setTextColor(Color.parseColor("#ffffff"))
             }
-            Handler().postDelayed({
+            uiHandler(2000) {
                 Navigation.from(this@SplashActivity)
                     .to("/main?from=${SplashActivity::class.simpleName}&flag=100")
                     .also {
                         finish()
                     }
-            }, 1000)
+            }
         }
     }
 }
