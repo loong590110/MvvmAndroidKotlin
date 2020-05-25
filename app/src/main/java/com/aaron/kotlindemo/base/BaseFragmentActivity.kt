@@ -164,21 +164,18 @@ interface Scheduler {
 
     fun <T> publish(any: T) {
         subscribers.filter { (key, _) -> key.isInstance(any) }
-                .forEach { (_, value) ->
-                    value.forEach {
-                        @Suppress("UNCHECKED_CAST")
-                        (it as (any: T) -> Unit)(any)
-                    }
+            .forEach { (_, value) ->
+                value.forEach {
+                    @Suppress("UNCHECKED_CAST")
+                    (it as (any: T) -> Unit)(any)
                 }
+            }
     }
 }
 
-private lateinit var handler: Handler
-val BaseActivity.uiHandler: Handler
-    get() {
-        handler = Handler(Looper.getMainLooper())
-        return handler
-    }
+val BaseActivity.uiHandler by lazy {
+    Handler(Looper.getMainLooper())
+}
 
 operator fun Handler.invoke(block: () -> Unit) {
     post(block)
