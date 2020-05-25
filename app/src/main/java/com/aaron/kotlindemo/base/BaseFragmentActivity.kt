@@ -2,8 +2,6 @@ package com.aaron.kotlindemo.base
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.aaron.kotlindemo.AutowiredHelper
@@ -32,7 +30,6 @@ abstract class BaseActivity : AppCompatActivity(), Scheduler, NavigationBar.OnBa
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         AutowiredHelper.inject(this, intent)
-        onSubscribe(this)
     }
 
     override fun onBack() {
@@ -110,7 +107,7 @@ interface Scheduler {
         private val subscribers = mutableMapOf<Class<*>, ArrayList<Any>>()
     }
 
-    fun <T> subscribe(subscriber: (any: T) -> Unit): Scheduler {
+    fun <T> subscribe(subscriber: (T) -> Unit): Scheduler {
         subscriber::class.java.genericInterfaces.takeIf({ isNotEmpty() }) {
             val type = this[0]
             if (type is ParameterizedType) {
@@ -141,14 +138,14 @@ interface Scheduler {
         return this
     }
 
-    fun <T> unsubscribe(key: T, subscriber: (any: T) -> Unit): Scheduler {
+    fun <T> unsubscribe(key: T, subscriber: (T) -> Unit): Scheduler {
         subscribers.filterKeys { it === key }.forEach { (_, value) ->
             value.remove(subscriber)
         }
         return this
     }
 
-    fun <T> unsubscribe(key: T, subscribers: ArrayList<(any: T) -> Unit>): Scheduler {
+    fun <T> unsubscribe(key: T, subscribers: ArrayList<(T) -> Unit>): Scheduler {
         Scheduler.subscribers.filterKeys { it === key }.forEach { (_, value) ->
             value.removeAll(subscribers)
         }
@@ -167,24 +164,8 @@ interface Scheduler {
             .forEach { (_, value) ->
                 value.forEach {
                     @Suppress("UNCHECKED_CAST")
-                    (it as (any: T) -> Unit)(any)
+                    (it as (T) -> Unit)(any)
                 }
             }
     }
-}
-
-val BaseActivity.uiHandler by lazy {
-    Handler(Looper.getMainLooper())
-}
-
-operator fun Handler.invoke(block: () -> Unit) {
-    post(block)
-}
-
-operator fun Handler.invoke(delay: Long, block: () -> Unit) {
-    postDelayed(block, delay)
-}
-
-operator fun <T> T.invoke(block: T.() -> Unit) {
-    block()
 }

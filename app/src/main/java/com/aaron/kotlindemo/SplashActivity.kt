@@ -4,8 +4,6 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil.setContentView
 import com.aaron.kotlindemo.base.BaseActivity
-import com.aaron.kotlindemo.base.invoke
-import com.aaron.kotlindemo.base.uiHandler
 import com.aaron.kotlindemo.databinding.ActivitySplashBinding
 
 /**

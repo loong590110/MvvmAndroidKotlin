@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
 import com.aaron.kotlindemo.base.BaseActivity
 import com.aaron.kotlindemo.base.Scheduler
-import com.aaron.kotlindemo.base.invoke
 import com.aaron.kotlindemo.databinding.ActivityMainBinding
 import com.aaron.kotlindemo.event.MainMessage
 import com.aaron.kotlindemo.event.Message
