@@ -47,6 +47,11 @@ class HomeFragment : BaseFragment() {
                             textView {
                                 setPadding(0, 15(dp), 0, 15(dp))
                                 gravity = Gravity.CENTER
+                                setOnClickListener {
+                                    uiHandler {
+                                        publish("$text clicked")
+                                    }
+                                }
                             }
                             return object : RecyclerView.ViewHolder(textView) {}
                         }
@@ -58,9 +63,6 @@ class HomeFragment : BaseFragment() {
                         (holder.itemView as TextView).text = "item $position"
                     }
                 }
-            }
-            uiHandler(1000) {
-                publish("Here is home fragment")
             }
         }.root
     }

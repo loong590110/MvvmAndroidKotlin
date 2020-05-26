@@ -1,14 +1,11 @@
 package com.aaron.kotlindemo
 
 import android.app.Activity
-import android.content.Context
 import android.content.res.Resources
 import android.os.Handler
 import android.os.Looper
-import android.util.DisplayMetrics
 import android.util.TypedValue
 import androidx.fragment.app.Fragment
-import com.aaron.kotlindemo.utils.DensityUtils
 
 /**
  * Created by Developer Zailong Shi on 2020-01-07.

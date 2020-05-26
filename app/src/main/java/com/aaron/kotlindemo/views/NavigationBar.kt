@@ -12,10 +12,9 @@ import java.lang.IllegalStateException
 /**
  * Created by Developer Zailong Shi on 2020-01-14.
  */
-class NavigationBar(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) :
-    ConstraintLayout(context, attrs, defStyleAttr) {
-    constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
-    constructor(context: Context?) : this(context, null)
+class NavigationBar @JvmOverloads constructor(
+    context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     val binding: NavigationBarBinding = DataBindingUtil.inflate(
         LayoutInflater.from(context), R.layout.navigation_bar, this, true

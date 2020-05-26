@@ -10,13 +10,14 @@ import com.aaron.kotlindemo.base.Scheduler
 import com.aaron.kotlindemo.databinding.ActivityMainBinding
 import com.aaron.kotlindemo.event.MainMessage
 import com.aaron.kotlindemo.event.Message
-import com.aaron.kotlindemo.utils.doubleClickExitTimer
+import com.aaron.kotlindemo.utils.clickCountDetector
 import com.google.android.material.tabs.TabLayout
 
 class MainActivity : BaseActivity() {
 
     @Autowired
     private var from: String? = null
+
     @Autowired
     private var flag: String? = null
 
@@ -30,9 +31,6 @@ class MainActivity : BaseActivity() {
                 text = "Main Activity from $from@$flag"
                 setOnClickListener {
                     publish(Message(desc = "from main"))
-                    btnSearch {
-                        text = ""
-                    }
                 }
             }
             btnSearch.setOnClickListener {
@@ -70,13 +68,11 @@ class MainActivity : BaseActivity() {
     }
 
     override fun onBackPressed() {
-        doubleClickExitTimer(1500) {
-            super.onBackPressed()
-        }.let {
-            if (it == 1) {
-                Toast.makeText(
-                    this, "Click Again To Exit", Toast.LENGTH_SHORT
-                ).show()
+        clickCountDetector(1500) {
+            when (it) {
+                1 -> Toast.makeText(this, "Click Again To Exit", Toast.LENGTH_SHORT)
+                    .show()
+                2 -> super.onBackPressed()
             }
         }
     }
