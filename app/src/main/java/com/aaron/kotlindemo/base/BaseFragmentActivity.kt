@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.aaron.kotlindemo.AutowiredHelper
-import com.aaron.kotlindemo.takeIf
 import com.aaron.kotlindemo.views.NavigationBar
 import java.lang.reflect.ParameterizedType
 
@@ -108,10 +107,10 @@ interface Scheduler {
     }
 
     fun <T> subscribe(subscriber: (T) -> Unit): Scheduler {
-        subscriber::class.java.genericInterfaces.takeIf({ isNotEmpty() }) {
+        subscriber::class.java.genericInterfaces.takeIf { it.isNotEmpty() }?.run {
             val type = this[0]
             if (type is ParameterizedType) {
-                type.actualTypeArguments.takeIf({ isNotEmpty() }) {
+                type.actualTypeArguments.takeIf { it.isNotEmpty() }?.run {
                     val key = this[0]
                     if (key is Class<*>) {
                         var subs = subscribers[key]

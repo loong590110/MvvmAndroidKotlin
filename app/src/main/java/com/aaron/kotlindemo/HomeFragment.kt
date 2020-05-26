@@ -1,12 +1,12 @@
 package com.aaron.kotlindemo
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aaron.kotlindemo.base.BaseFragment
@@ -35,11 +35,8 @@ class HomeFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentHomeBinding = DataBindingUtil.inflate(
-            inflater, R.layout.fragment_home, container, false
-        )
-        with(binding) {
-            recyclerView.apply {
+        return FragmentHomeBinding.inflate(inflater, container, false).apply {
+            recyclerView {
                 layoutManager = GridLayoutManager(context, 4)
                 adapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     override fun onCreateViewHolder(
@@ -47,24 +44,25 @@ class HomeFragment : BaseFragment() {
                     ): RecyclerView.ViewHolder {
                         with(parent.context) {
                             val textView = TextView(this)
-                            textView.setPadding(
-                                15.dp, 10.dp, 15.dp, 10.dp
-                            )
+                            textView {
+                                setPadding(0, 15(dp), 0, 15(dp))
+                                gravity = Gravity.CENTER
+                            }
                             return object : RecyclerView.ViewHolder(textView) {}
                         }
                     }
 
-                    override fun getItemCount(): Int {
-                        return 100
-                    }
+                    override fun getItemCount() = 100
 
                     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
                         (holder.itemView as TextView).text = "item $position"
                     }
                 }
             }
-            return root
-        }
+            uiHandler(1000) {
+                publish("Here is home fragment")
+            }
+        }.root
     }
 
     override fun onSubscribe(scheduler: Scheduler) {

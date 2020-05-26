@@ -20,17 +20,26 @@ class Navigation private constructor(private val context: Context) {
         fun from(context: Context) = Navigation(context)
     }
 
+    @JvmOverloads
     fun to(path: String, requestCode: Int = -1) {
         route.targetIntent(context, Uri.parse(path))?.apply {
             if (context is Activity) {
                 context.startActivityForResult(this, requestCode)
-                val finish: Boolean? = getStringExtra("finish")?.toBoolean()
-                if (finish == true) context.finish()
+                val finish = getStringExtra("finish")
+                if (finish == "true") context.finish()
             }
         }
     }
 
-    interface Route {
-        fun targetIntent(context: Context, uri: Uri?): Intent?
+    open class Route(private val routeTable: Map<String, Class<*>>) {
+        fun targetIntent(context: Context, uri: Uri) = routeTable[uri.path]?.let { clazz ->
+            Intent(context, clazz).apply {
+                uri.encodedQuery?.split('&')?.forEach { field ->
+                    field.split('=').takeIf { it.size == 2 }?.let {
+                        putExtra(it[0], Uri.decode(it[1]))
+                    }
+                }
+            }
+        }
     }
 }
