@@ -2,7 +2,7 @@ package com.aaron.kotlindemo
 
 import android.os.Bundle
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil.setContentView
 import com.aaron.kotlindemo.base.BaseActivity
 import com.aaron.kotlindemo.base.Scheduler
 import com.aaron.kotlindemo.databinding.ActivityMessageBinding
@@ -17,16 +17,15 @@ class MessageActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: ActivityMessageBinding = DataBindingUtil.setContentView(
-            this, R.layout.activity_message
-        )
-        binding.apply {
-            navigationBar.apply {
-                this.binding.apply {
+        setContentView<ActivityMessageBinding>(
+                this, R.layout.activity_message
+        ).apply {
+            navigationBar {
+                binding {
                     txtTitle.text = "Message"
                 }
             }
-            txtContent.apply {
+            txtContent {
                 text = "Message Activity"
                 setOnClickListener {
                     publish(Message(desc = "message"))

@@ -31,7 +31,7 @@ val Fragment.dp get() = dp2px(resources)
 fun dp2px(resources: Resources?) = { dp: Float ->
     resources?.run {
         TypedValue.applyDimension(
-            TypedValue.COMPLEX_UNIT_DIP, dp, displayMetrics
+                TypedValue.COMPLEX_UNIT_DIP, dp, displayMetrics
         ).toInt()
     } ?: 0
 }

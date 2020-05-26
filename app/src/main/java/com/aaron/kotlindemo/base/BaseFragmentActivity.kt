@@ -160,11 +160,11 @@ interface Scheduler {
 
     fun <T> publish(any: T) {
         subscribers.filter { (key, _) -> key.isInstance(any) }
-            .forEach { (_, value) ->
-                value.forEach {
-                    @Suppress("UNCHECKED_CAST")
-                    (it as (T) -> Unit)(any)
+                .forEach { (_, value) ->
+                    value.forEach {
+                        @Suppress("UNCHECKED_CAST")
+                        (it as (T) -> Unit)(any)
+                    }
                 }
-            }
     }
 }

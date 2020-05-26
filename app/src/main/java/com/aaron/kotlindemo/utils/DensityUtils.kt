@@ -8,11 +8,11 @@ import android.util.TypedValue
  */
 object DensityUtils {
     fun dp2px(context: Context?, dp: Float): Int =
-        context?.run {
-            TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                dp,
-                resources.displayMetrics
-            ).toInt()
-        } ?: 0
+            context?.run {
+                TypedValue.applyDimension(
+                        TypedValue.COMPLEX_UNIT_DIP,
+                        dp,
+                        resources.displayMetrics
+                ).toInt()
+            } ?: 0
 }

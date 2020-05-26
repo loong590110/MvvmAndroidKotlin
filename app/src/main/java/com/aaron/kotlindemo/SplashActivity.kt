@@ -14,7 +14,7 @@ class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView<ActivitySplashBinding>(
-            this, R.layout.activity_splash
+                this, R.layout.activity_splash
         ).apply {
             txtTitle {
                 text = "splash"
@@ -22,10 +22,10 @@ class SplashActivity : BaseActivity() {
             }
             uiHandler(2000) {
                 Navigation.from(this@SplashActivity)
-                    .to("/main?from=${SplashActivity::class.simpleName}&flag=100")
-                    .also {
-                        finish()
-                    }
+                        .to("/main?from=${SplashActivity::class.simpleName}&flag=100")
+                        .also {
+                            finish()
+                        }
             }
         }
     }
