@@ -24,7 +24,7 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(
-            this, R.layout.activity_main
+                this, R.layout.activity_main
         )
         binding {
             txtTitle {
@@ -43,8 +43,8 @@ class MainActivity : BaseActivity() {
                 setupWithViewPager(viewPager)
             }
             viewPager.adapter = object : FragmentPagerAdapter(
-                supportFragmentManager,
-                BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+                    supportFragmentManager,
+                    BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
             ) {
                 override fun getItem(position: Int): Fragment {
                     return HomeFragment.newInstance(position)
@@ -71,7 +71,7 @@ class MainActivity : BaseActivity() {
         clickCountDetector(1500) {
             when (it) {
                 1 -> Toast.makeText(this, "Click Again To Exit", Toast.LENGTH_SHORT)
-                    .show()
+                        .show()
                 2 -> super.onBackPressed()
             }
         }

@@ -33,14 +33,14 @@ class HomeFragment : BaseFragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+            inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         return FragmentHomeBinding.inflate(inflater, container, false).apply {
             recyclerView {
                 layoutManager = GridLayoutManager(context, 4)
                 adapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     override fun onCreateViewHolder(
-                        parent: ViewGroup, viewType: Int
+                            parent: ViewGroup, viewType: Int
                     ): RecyclerView.ViewHolder {
                         with(parent.context) {
                             val textView = TextView(this)
