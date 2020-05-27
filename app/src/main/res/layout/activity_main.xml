@@ -34,11 +34,12 @@
                         app:layout_constraintRight_toLeftOf="@+id/btn_search"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <View
+                    <ImageView
                         android:id="@+id/btn_search"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:background="@mipmap/ic_launcher"
+                        android:padding="5dp"
+                        android:src="@drawable/ic_search_white_24dp"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>

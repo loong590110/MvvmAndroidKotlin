@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.os.Parcelable
 import android.text.TextUtils
 import java.io.Serializable
-import java.lang.reflect.ParameterizedType
 
 /**
  * Created by Developer Zailong Shi on 2020-01-07.
@@ -98,11 +97,6 @@ object AutowiredHelper {
                     it.type.isAssignableFrom(Array<Parcelable>::class.java) -> {
                         it.set(any, getParcelableArrayExtra(name))
                     }
-                    it.type.isAssignableFrom(ArrayList::class.java) -> {
-                        if (it.genericType is ParameterizedType) {
-                            //todo
-                        }
-                    }
                 }
             }
         }
@@ -186,15 +180,10 @@ object AutowiredHelper {
                         it.set(any, getStringArray(name))
                     }
                     it.type.isAssignableFrom(Array<CharSequence>::class.java) -> {
-                        it.set(any, getCharSequence(name))
+                        it.set(any, getCharSequenceArray(name))
                     }
                     it.type.isAssignableFrom(Array<Parcelable>::class.java) -> {
                         it.set(any, getParcelableArray(name))
-                    }
-                    it.type.isAssignableFrom(ArrayList::class.java) -> {
-                        if (it.genericType is ParameterizedType) {
-                            //todo
-                        }
                     }
                 }
             }

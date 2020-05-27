@@ -2,18 +2,17 @@ package com.aaron.kotlindemo
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
-import com.aaron.kotlindemo.base.BaseActivity
-import com.aaron.kotlindemo.base.Scheduler
 import com.aaron.kotlindemo.databinding.ActivityMainBinding
 import com.aaron.kotlindemo.event.MainMessage
 import com.aaron.kotlindemo.event.Message
 import com.aaron.kotlindemo.utils.clickCountDetector
 import com.google.android.material.tabs.TabLayout
 
-class MainActivity : BaseActivity() {
+class MainActivity : AppCompatActivity() {
 
     @Autowired
     private var from: String? = null
@@ -23,6 +22,7 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        onSubscribe()
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(
                 this, R.layout.activity_main
         )
@@ -61,8 +61,8 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    override fun onSubscribe(scheduler: Scheduler) {
-        scheduler.subscribe<MainMessage> {
+    private fun onSubscribe() {
+        subscribe<MainMessage> {
             Toast.makeText(this, it.desc, Toast.LENGTH_SHORT).show()
         }
     }

@@ -7,17 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.aaron.kotlindemo.base.BaseFragment
-import com.aaron.kotlindemo.base.Scheduler
 import com.aaron.kotlindemo.databinding.FragmentHomeBinding
 import com.aaron.kotlindemo.event.HomeMessage
 
 /**
  * Created by Developer Zailong Shi on 2020-01-06.
  */
-class HomeFragment : BaseFragment() {
+class HomeFragment : Fragment() {
 
     @Autowired(name = "flag")
     private var flag: Int? = null
@@ -36,6 +35,7 @@ class HomeFragment : BaseFragment() {
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         return FragmentHomeBinding.inflate(inflater, container, false).apply {
+            onSubscribe()
             recyclerView {
                 layoutManager = GridLayoutManager(context, 4)
                 adapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -67,12 +67,14 @@ class HomeFragment : BaseFragment() {
         }.root
     }
 
-    override fun onSubscribe(scheduler: Scheduler) {
-        scheduler.subscribe<String> {
+    private fun onSubscribe() {
+        subscribe<String> {
             Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-        }.subscribe<Int> {
+        }
+        subscribe<Int> {
             Toast.makeText(context, "Int $flag = $it", Toast.LENGTH_SHORT).show()
-        }.subscribe<HomeMessage> {
+        }
+        subscribe<HomeMessage> {
             Toast.makeText(context, it.desc, Toast.LENGTH_SHORT).show()
         }
     }
