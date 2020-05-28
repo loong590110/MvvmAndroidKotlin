@@ -29,13 +29,13 @@ val Fragment.uiHandler get() = Activity::uiHandler.get(requireActivity())
 //endregion
 
 //region dp to px
-typealias dp2px = (Float) -> Int
+private typealias dp2px = (Float) -> Int
 
 operator fun Float.invoke(dp: dp2px) = dp(this)
 operator fun Int.invoke(dp: dp2px) = dp(toFloat())
 val Activity.dp get() = dp2px(resources)
 val Fragment.dp get() = dp2px(resources)
-fun dp2px(resources: Resources?) = { dp: Float ->
+private fun dp2px(resources: Resources?) = { dp: Float ->
     resources?.run {
         TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP, dp, displayMetrics
@@ -54,10 +54,21 @@ private val lifecycleObserver by lazy {
 
         @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
         fun onUnsubscribe(owner: LifecycleOwner) {
-            subscribersOwner[owner]?.forEach {
-                subscribers[it.type]?.remove(it)
+            subscribersOwner.let { it ->
+                it[owner] {
+                    forEach { subscriber ->
+                        subscribers.let {
+                            it[subscriber.type] {
+                                remove(subscriber)
+                                if (size == 0) {
+                                    it.remove(subscriber.type)
+                                }
+                            }
+                        }
+                    }
+                }
+                it.remove(owner)
             }
-            subscribersOwner.remove(owner)
         }
     }
 }
