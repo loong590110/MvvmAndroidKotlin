@@ -1,6 +1,5 @@
 package com.aaron.kotlindemo
 
-import android.app.Activity
 import android.content.res.Resources
 import android.os.Handler
 import android.os.Looper
@@ -11,7 +10,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
-import java.util.*
+import java.util.LinkedList
 import kotlin.collections.LinkedHashMap
 
 /**
@@ -22,10 +21,8 @@ operator fun Handler.invoke(delay: Long, block: () -> Unit) = postDelayed(block,
 inline operator fun <T> T?.invoke(block: T.() -> Unit) = this?.apply(block)
 
 //region ui handler
-val Activity.uiHandler by lazy {
-    Handler(Looper.getMainLooper())
-}
-val Fragment.uiHandler get() = Activity::uiHandler.get(requireActivity())
+val FragmentActivity.uiHandler by lazy { Handler(Looper.getMainLooper()) }
+val Fragment.uiHandler get() = FragmentActivity::uiHandler.get(requireActivity())
 //endregion
 
 //region dp to px
@@ -33,7 +30,7 @@ private typealias dp2px = (Float) -> Int
 
 operator fun Float.invoke(dp: dp2px) = dp(this)
 operator fun Int.invoke(dp: dp2px) = dp(toFloat())
-val Activity.dp get() = dp2px(resources)
+val FragmentActivity.dp get() = dp2px(resources)
 val Fragment.dp get() = dp2px(resources)
 private fun dp2px(resources: Resources?) = { dp: Float ->
     resources?.run {
