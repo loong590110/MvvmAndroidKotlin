@@ -53,6 +53,7 @@ private val lifecycleObserver by lazy {
 
         @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
         fun onUnsubscribe(owner: LifecycleOwner) {
+            owner.lifecycle.removeObserver(this)
             subscribersOwner.let { it ->
                 it[owner] {
                     forEach { subscriber ->
@@ -76,21 +77,19 @@ fun subscribe(owner: LifecycleOwner, type: Any, subscriber: (Any) -> Unit) {
     if (owner !is FragmentActivity && owner !is Fragment) {
         throw IllegalArgumentException("owner must be instance of FragmentActivity Or Fragment")
     }
-    owner {
-        lifecycleObserver {
-            if (subscribersOwner.containsKey(owner).not()) {
-                lifecycle.addObserver(lifecycleObserver)
+    lifecycleObserver {
+        if (subscribersOwner.containsKey(owner).not()) {
+            owner.lifecycle.addObserver(lifecycleObserver)
+        }
+        val messageSubscriber = MessageSubscriber(type, subscriber)
+        (subscribersOwner[owner] ?: LinkedList<MessageSubscriber>()) {
+            add(messageSubscriber).also {
+                subscribersOwner[owner] = this
             }
-            val messageSubscriber = MessageSubscriber(type, subscriber)
-            (subscribersOwner[owner] ?: LinkedList<MessageSubscriber>()) {
-                add(messageSubscriber).also {
-                    subscribersOwner[owner] = this
-                }
-            }
-            (subscribers[type] ?: LinkedList<MessageSubscriber>()) {
-                add(messageSubscriber).also {
-                    subscribers[type] = this
-                }
+        }
+        (subscribers[type] ?: LinkedList<MessageSubscriber>()) {
+            add(messageSubscriber).also {
+                subscribers[type] = this
             }
         }
     }
