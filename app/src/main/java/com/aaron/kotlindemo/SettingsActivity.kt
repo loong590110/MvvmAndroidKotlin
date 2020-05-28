@@ -1,7 +1,6 @@
 package com.aaron.kotlindemo
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.aaron.kotlindemo.event.Message
 
@@ -12,7 +11,7 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         onSubscribe()
-        publish(Message("settings"))
+        publish(Message("SETTINGS"))
     }
 
     private fun onSubscribe() {
