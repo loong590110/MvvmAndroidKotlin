@@ -9,12 +9,11 @@ import com.julius.mytube.event.HomeMessage
 import com.julius.mytube.event.MainMessage
 import com.julius.mytube.event.Message
 import com.julius.mytube.extends.*
-import com.julius.mytube.views.NavigationBar
 
 /**
  * Created by Developer Zailong Shi on 2020-01-13.
  */
-class MessageActivity : AppCompatActivity(), NavigationBar.OnBackListener {
+class MessageActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,9 +42,5 @@ class MessageActivity : AppCompatActivity(), NavigationBar.OnBackListener {
                 duration = Toast.LENGTH_LONG
             }
         }
-    }
-
-    override fun onBack() {
-        finish()
     }
 }

@@ -1,5 +1,6 @@
 package com.julius.mytube.views
 
+import android.app.Activity
 import android.content.Context
 import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -18,18 +19,13 @@ class NavigationBar @JvmOverloads constructor(
 
     init {
         if (!isInEditMode) {
-            if (context !is OnBackListener) {
-                throw IllegalStateException("Context must is instance of OnBackListener.")
-            }
-            binding {
-                btnBack.setOnClickListener {
-                    context.onBack()
+            if (context is Activity) {
+                binding {
+                    btnBack.setOnClickListener {
+                        context.finish()
+                    }
                 }
             }
         }
-    }
-
-    interface OnBackListener {
-        fun onBack()
     }
 }
