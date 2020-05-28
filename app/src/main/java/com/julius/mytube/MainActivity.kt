@@ -1,19 +1,14 @@
-package com.aaron.kotlindemo
+package com.julius.mytube
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentPagerAdapter
-import com.aaron.kotlindemo.databinding.ActivityMainBinding
-import com.aaron.kotlindemo.event.MainMessage
-import com.aaron.kotlindemo.event.Message
-import com.aaron.kotlindemo.extends.publish
-import com.aaron.kotlindemo.extends.subscribe
-import com.aaron.kotlindemo.extends.toast
-import com.aaron.kotlindemo.utils.clickCountDetector
 import com.google.android.material.tabs.TabLayout
+import com.julius.mytube.databinding.ActivityMainBinding
+import com.julius.mytube.event.MainMessage
+import com.julius.mytube.event.Message
+import com.julius.mytube.extends.*
+import com.julius.mytube.utils.clickCountDetector
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,9 +21,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         onSubscribe()
-        val binding: ActivityMainBinding = DataBindingUtil.setContentView(
-                this, R.layout.activity_main
-        )
+        val binding = setContentView<ActivityMainBinding>(R.layout.activity_main)
         binding {
             txtTitle {
                 text = "Main Activity from $from@$flag"
@@ -49,13 +42,9 @@ class MainActivity : AppCompatActivity() {
                     supportFragmentManager,
                     BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
             ) {
-                override fun getItem(position: Int): Fragment {
-                    return HomeFragment.newInstance(position)
-                }
+                override fun getItem(position: Int) = HomeFragment.newInstance(position)
 
-                override fun getCount(): Int {
-                    return 10
-                }
+                override fun getCount() = 10
 
                 override fun getPageTitle(position: Int): CharSequence? {
                     return arrayListOf("home", "discovery", "message", "mine")[position % 4]
@@ -65,9 +54,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onSubscribe() {
-        subscribe<MainMessage> {
-            Toast.makeText(this, it.desc, Toast.LENGTH_SHORT).show()
-        }
+        subscribe<MainMessage> { toast(it.desc) }
     }
 
     override fun onBackPressed() {

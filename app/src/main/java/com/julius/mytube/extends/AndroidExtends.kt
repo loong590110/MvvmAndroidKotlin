@@ -1,9 +1,10 @@
-package com.aaron.kotlindemo.extends
+package com.julius.mytube.extends
 
 import android.content.res.Resources
 import android.os.Handler
 import android.os.Looper
 import android.util.TypedValue
+import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -11,7 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
-import java.util.*
+import java.util.LinkedList
 import kotlin.collections.LinkedHashMap
 
 /**
@@ -22,8 +23,10 @@ operator fun Handler.invoke(delay: Long, block: () -> Unit) = postDelayed(block,
 inline operator fun <T> T?.invoke(block: T.() -> Unit) = this?.apply(block)
 
 //region ui handler
-val FragmentActivity.uiHandler by lazy { Handler(Looper.getMainLooper()) }
-val Fragment.uiHandler get() = FragmentActivity::uiHandler.get(requireActivity())
+private val uiHandler by lazy { Handler(Looper.getMainLooper()) }
+fun FragmentActivity.runOnUiThread(delay: Long, block: () -> Unit) = run { uiHandler(delay, block) }
+fun Fragment.runOnUiThread(block: () -> Unit) = run { uiHandler(block) }
+fun Fragment.runOnUiThread(delay: Long, block: () -> Unit) = run { uiHandler(delay, block) }
 //endregion
 
 //region dp to px
@@ -49,7 +52,6 @@ private val lifecycleObserver by lazy {
     object : LifecycleObserver {
         val subscribersOwner = LinkedHashMap<LifecycleOwner, LinkedList<MessageSubscriber>>()
         val subscribers = LinkedHashMap<Any, LinkedList<MessageSubscriber>>()
-        val uiHandler = Handler(Looper.getMainLooper())
 
         @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
         fun onUnsubscribe(owner: LifecycleOwner) {
@@ -139,4 +141,10 @@ fun Fragment.toast(text: String, block: (Toast.() -> Unit)? = null) {
         show()
     }
 }
+//endregion
+
+//region view's visibility
+fun View.visible() = run { visibility = View.VISIBLE }
+fun View.invisible() = run { visibility = View.INVISIBLE }
+fun View.gone() = run { visibility = View.GONE }
 //endregion

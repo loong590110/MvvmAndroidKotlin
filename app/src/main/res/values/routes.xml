@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="scheme">kta</string>
-    <string name="host">com.aaron.kotlindemo</string>
+    <string name="scheme">mytube</string>
+    <string name="host">com.julius.mytube</string>
     <string name="path_splash">/splash</string>
     <string name="path_main">/main</string>
     <string name="path_message">/message</string>
+    <string name="path_settings">/settings</string>
 </resources>

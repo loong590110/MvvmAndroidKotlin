@@ -1,4 +1,4 @@
-package com.aaron.kotlindemo
+package com.julius.mytube
 
 import android.os.Bundle
 import android.view.Gravity
@@ -9,9 +9,9 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.aaron.kotlindemo.databinding.FragmentHomeBinding
-import com.aaron.kotlindemo.event.HomeMessage
-import com.aaron.kotlindemo.extends.*
+import com.julius.mytube.databinding.FragmentHomeBinding
+import com.julius.mytube.event.HomeMessage
+import com.julius.mytube.extends.*
 
 /**
  * Created by Developer Zailong Shi on 2020-01-06.
@@ -34,7 +34,7 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        return FragmentHomeBinding.inflate(inflater, container, false).apply {
+        return inflate<FragmentHomeBinding>(inflater, container).apply {
             onSubscribe()
             recyclerView {
                 layoutManager = GridLayoutManager(context, 4)
@@ -48,10 +48,11 @@ class HomeFragment : Fragment() {
                                 setPadding(0, 15(dp), 0, 15(dp))
                                 gravity = Gravity.CENTER
                                 setOnClickListener {
-                                    uiHandler {
+                                    runOnUiThread {
                                         publish("$text clicked")
                                     }
                                 }
+                                visible()
                             }
                             return object : RecyclerView.ViewHolder(textView) {}
                         }

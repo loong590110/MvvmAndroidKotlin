@@ -1,11 +1,11 @@
-package com.aaron.kotlindemo
+package com.julius.mytube
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.aaron.kotlindemo.event.Message
-import com.aaron.kotlindemo.extends.publish
-import com.aaron.kotlindemo.extends.subscribe
-import com.aaron.kotlindemo.extends.toast
+import com.julius.mytube.event.Message
+import com.julius.mytube.extends.publish
+import com.julius.mytube.extends.subscribe
+import com.julius.mytube.extends.toast
 
 /**
  * Created by Developer Zailong Shi on 2020-01-14.

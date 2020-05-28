@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.aaron.kotlindemo">
+    package="com.julius.mytube">
 
     <application
-        android:name=".KotlinApp"
+        android:name="com.julius.mytube.KotlinApp"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashActivity"
+            android:name="com.julius.mytube.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <data
@@ -27,8 +27,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".MessageActivity" />
-        <activity android:name=".SettingsActivity" />
+        <activity android:name="com.julius.mytube.MainActivity" />
+        <activity android:name="com.julius.mytube.MessageActivity" />
+        <activity android:name="com.julius.mytube.SettingsActivity" />
     </application>
 </manifest>
