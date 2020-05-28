@@ -1,6 +1,7 @@
 package com.aaron.kotlindemo
 
 import android.os.Bundle
+import android.view.Gravity
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil.setContentView
@@ -29,9 +30,9 @@ class MessageActivity : AppCompatActivity(), NavigationBar.OnBackListener {
             txtContent {
                 text = "Message Activity"
                 setOnClickListener {
-                    publish(Message(desc = "message"))
-                    publish(MainMessage(desc = "main"))
-                    publish(HomeMessage(desc = "home"))
+                    publish(Message(desc = "MESSAGE"))
+                    publish(MainMessage(desc = "MAIN"))
+                    publish(HomeMessage(desc = "HOME"))
                 }
             }
         }
@@ -39,7 +40,10 @@ class MessageActivity : AppCompatActivity(), NavigationBar.OnBackListener {
 
     private fun onSubscribe() {
         subscribe<Message> {
-            Toast.makeText(this, it.desc, Toast.LENGTH_SHORT).show()
+            toast(it.desc) {
+                setGravity(Gravity.CENTER, 0, 0)
+                duration = Toast.LENGTH_LONG
+            }
         }
     }
 

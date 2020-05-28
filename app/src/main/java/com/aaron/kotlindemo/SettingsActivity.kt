@@ -16,8 +16,6 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun onSubscribe() {
-        subscribe<Message> {
-            Toast.makeText(this, it.desc, Toast.LENGTH_SHORT).show()
-        }
+        subscribe<Message> { toast(it.desc) }
     }
 }

@@ -68,14 +68,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun onSubscribe() {
-        subscribe<String> {
-            Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-        }
-        subscribe<Int> {
-            Toast.makeText(context, "Int $flag = $it", Toast.LENGTH_SHORT).show()
-        }
-        subscribe<HomeMessage> {
-            Toast.makeText(context, it.desc, Toast.LENGTH_SHORT).show()
-        }
+        subscribe<String> { toast(it) }
+        subscribe<Int> { toast("Int $flag = $it") }
+        subscribe<HomeMessage> { toast(it.desc) }
     }
 }

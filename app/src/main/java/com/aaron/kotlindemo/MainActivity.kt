@@ -70,8 +70,7 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         clickCountDetector(1500) {
             when (it) {
-                1 -> Toast.makeText(this, "Click Again To Exit", Toast.LENGTH_SHORT)
-                        .show()
+                1 -> toast("Click Again To Exit")
                 2 -> super.onBackPressed()
             }
         }

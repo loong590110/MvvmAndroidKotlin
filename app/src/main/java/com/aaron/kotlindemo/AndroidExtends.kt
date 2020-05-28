@@ -4,13 +4,14 @@ import android.content.res.Resources
 import android.os.Handler
 import android.os.Looper
 import android.util.TypedValue
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.OnLifecycleEvent
-import java.util.LinkedList
+import java.util.*
 import kotlin.collections.LinkedHashMap
 
 /**
@@ -113,4 +114,24 @@ inline fun <reified T : Any> Fragment.subscribe(noinline subscriber: (T) -> Unit
 }
 
 inline fun <reified T : Any> Fragment.publish(message: T) = publish(T::class, message)
+//endregion
+
+//region toast
+fun FragmentActivity.toast(text: CharSequence, block: (Toast.() -> Unit)? = null) {
+    Toast.makeText(this, text, Toast.LENGTH_SHORT).apply {
+        if (block != null) {
+            block()
+        }
+        show()
+    }
+}
+
+fun Fragment.toast(text: String, block: (Toast.() -> Unit)? = null) {
+    Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).apply {
+        if (block != null) {
+            block()
+        }
+        show()
+    }
+}
 //endregion
