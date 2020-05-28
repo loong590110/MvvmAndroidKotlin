@@ -51,6 +51,7 @@ private val lifecycleObserver by lazy {
     object : LifecycleObserver {
         val subscribersOwner = LinkedHashMap<LifecycleOwner, LinkedList<MessageSubscriber>>()
         val subscribers = LinkedHashMap<Any, LinkedList<MessageSubscriber>>()
+        val uiHandler = Handler(Looper.getMainLooper())
 
         @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
         fun onUnsubscribe(owner: LifecycleOwner) {
@@ -81,12 +82,14 @@ fun subscribe(owner: LifecycleOwner, type: Any, subscriber: (Any) -> Unit) {
             }
             val messageSubscriber = MessageSubscriber(type, subscriber)
             (subscribersOwner[owner] ?: LinkedList<MessageSubscriber>()) {
-                push(messageSubscriber)
-                subscribersOwner[owner] = this
+                add(messageSubscriber).also {
+                    subscribersOwner[owner] = this
+                }
             }
             (subscribers[type] ?: LinkedList<MessageSubscriber>()) {
-                push(messageSubscriber)
-                subscribers[type] = this
+                add(messageSubscriber).also {
+                    subscribers[type] = this
+                }
             }
         }
     }
@@ -95,7 +98,7 @@ fun subscribe(owner: LifecycleOwner, type: Any, subscriber: (Any) -> Unit) {
 fun publish(type: Any, message: Any) {
     lifecycleObserver {
         subscribers[type]?.forEach {
-            it.subscriber(message)
+            uiHandler { it.subscriber(message) }
         }
     }
 }
@@ -105,16 +108,12 @@ inline fun <reified T : Any> FragmentActivity.subscribe(noinline subscriber: (T)
     subscribe(this, T::class, subscriber as (Any) -> Unit)
 }
 
-inline fun <reified T : Any> FragmentActivity.publish(message: T) {
-    uiHandler { publish(T::class, message) }
-}
+inline fun <reified T : Any> FragmentActivity.publish(message: T) = publish(T::class, message)
 
 inline fun <reified T : Any> Fragment.subscribe(noinline subscriber: (T) -> Unit) {
     @Suppress("UNCHECKED_CAST")
     subscribe(this, T::class, subscriber as (Any) -> Unit)
 }
 
-inline fun <reified T : Any> Fragment.publish(message: T) {
-    uiHandler { publish(T::class, message) }
-}
+inline fun <reified T : Any> Fragment.publish(message: T) = publish(T::class, message)
 //endregion
