@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.aaron.kotlindemo.databinding.FragmentHomeBinding
 import com.aaron.kotlindemo.event.HomeMessage
+import com.aaron.kotlindemo.extends.*
 
 /**
  * Created by Developer Zailong Shi on 2020-01-06.

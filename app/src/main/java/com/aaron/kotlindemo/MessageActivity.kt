@@ -9,6 +9,9 @@ import com.aaron.kotlindemo.databinding.ActivityMessageBinding
 import com.aaron.kotlindemo.event.HomeMessage
 import com.aaron.kotlindemo.event.MainMessage
 import com.aaron.kotlindemo.event.Message
+import com.aaron.kotlindemo.extends.publish
+import com.aaron.kotlindemo.extends.subscribe
+import com.aaron.kotlindemo.extends.toast
 import com.aaron.kotlindemo.views.NavigationBar
 
 /**

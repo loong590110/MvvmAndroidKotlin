@@ -1,14 +1,10 @@
-package com.aaron.kotlindemo
+package com.aaron.kotlindemo.extends
 
 import android.content.res.Resources
 import android.os.Handler
 import android.os.Looper
 import android.util.TypedValue
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
@@ -112,14 +108,14 @@ fun publish(owner: LifecycleOwner, type: Any, message: Any) {
 
 inline fun <reified T : Any> FragmentActivity.subscribe(noinline subscriber: (T) -> Unit) {
     @Suppress("UNCHECKED_CAST")
-    subscribe(this, T::class, subscriber as (Any) -> Unit)
+    (subscribe(this, T::class, subscriber as (Any) -> Unit))
 }
 
 inline fun <reified T : Any> FragmentActivity.publish(message: T) = publish(this, T::class, message)
 
 inline fun <reified T : Any> Fragment.subscribe(noinline subscriber: (T) -> Unit) {
     @Suppress("UNCHECKED_CAST")
-    subscribe(this, T::class, subscriber as (Any) -> Unit)
+    (subscribe(this, T::class, subscriber as (Any) -> Unit))
 }
 
 inline fun <reified T : Any> Fragment.publish(message: T) = publish(this, T::class, message)
@@ -142,15 +138,5 @@ fun Fragment.toast(text: String, block: (Toast.() -> Unit)? = null) {
         }
         show()
     }
-}
-//endregion
-
-//region data binding util
-inline fun <reified T : ViewDataBinding> ViewGroup.inflate(attach: Boolean = true): T {
-    return T::class.java.getDeclaredMethod(
-            "inflate", LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java
-    ).invoke(
-            null, LayoutInflater.from(context), this, attach
-    ) as T
 }
 //endregion

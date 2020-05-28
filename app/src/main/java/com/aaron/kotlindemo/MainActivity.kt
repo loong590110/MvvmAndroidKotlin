@@ -9,6 +9,9 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.aaron.kotlindemo.databinding.ActivityMainBinding
 import com.aaron.kotlindemo.event.MainMessage
 import com.aaron.kotlindemo.event.Message
+import com.aaron.kotlindemo.extends.publish
+import com.aaron.kotlindemo.extends.subscribe
+import com.aaron.kotlindemo.extends.toast
 import com.aaron.kotlindemo.utils.clickCountDetector
 import com.google.android.material.tabs.TabLayout
 

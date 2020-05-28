@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil.setContentView
 import com.aaron.kotlindemo.databinding.ActivitySplashBinding
+import com.aaron.kotlindemo.extends.uiHandler
 
 /**
  * Created by Developer Zailong Shi on 2020-01-07.

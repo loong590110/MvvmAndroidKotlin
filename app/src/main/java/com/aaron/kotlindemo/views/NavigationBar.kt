@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.aaron.kotlindemo.databinding.NavigationBarBinding
-import com.aaron.kotlindemo.inflate
+import com.aaron.kotlindemo.extends.inflate
 
 /**
  * Created by Developer Zailong Shi on 2020-01-14.
@@ -13,7 +13,7 @@ class NavigationBar @JvmOverloads constructor(
         context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    val binding: NavigationBarBinding = inflate()
+    private val binding: NavigationBarBinding = inflate()
 
     init {
         if (!isInEditMode) {
