@@ -83,7 +83,8 @@ fun subscribe(owner: LifecycleOwner, type: Any, subscriber: (Any) -> Unit) {
         if (subscribersOwner.containsKey(owner).not()) {
             owner.lifecycle.addObserver(lifecycleObserver)
         }
-        val messageSubscriber = MessageSubscriber(type, subscriber)
+        val messageSubscriber =
+            MessageSubscriber(type, subscriber)
         (subscribersOwner[owner] ?: LinkedList<MessageSubscriber>()) {
             add(messageSubscriber).also {
                 subscribersOwner[owner] = this
@@ -110,17 +111,27 @@ fun publish(owner: LifecycleOwner, type: Any, message: Any) {
 
 inline fun <reified T : Any> FragmentActivity.subscribe(noinline subscriber: (T) -> Unit) {
     @Suppress("UNCHECKED_CAST")
-    (subscribe(this, T::class, subscriber as (Any) -> Unit))
+    (subscribe(
+        this,
+        T::class,
+        subscriber as (Any) -> Unit
+    ))
 }
 
-inline fun <reified T : Any> FragmentActivity.publish(message: T) = publish(this, T::class, message)
+inline fun <reified T : Any> FragmentActivity.publish(message: T) =
+    publish(this, T::class, message)
 
 inline fun <reified T : Any> Fragment.subscribe(noinline subscriber: (T) -> Unit) {
     @Suppress("UNCHECKED_CAST")
-    (subscribe(this, T::class, subscriber as (Any) -> Unit))
+    (subscribe(
+        this,
+        T::class,
+        subscriber as (Any) -> Unit
+    ))
 }
 
-inline fun <reified T : Any> Fragment.publish(message: T) = publish(this, T::class, message)
+inline fun <reified T : Any> Fragment.publish(message: T) =
+    publish(this, T::class, message)
 //endregion
 
 //region toast

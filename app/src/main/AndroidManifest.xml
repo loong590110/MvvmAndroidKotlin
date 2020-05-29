@@ -3,7 +3,7 @@
     package="com.julius.mytube">
 
     <application
-        android:name="com.julius.mytube.KotlinApp"
+        android:name="com.julius.mytube.app.KotlinApp"
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_descriptor"
         android:icon="@mipmap/ic_launcher"
@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.julius.mytube.SplashActivity"
+            android:name="com.julius.mytube.views.splash.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <data
@@ -27,8 +27,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.julius.mytube.MainActivity" />
-        <activity android:name="com.julius.mytube.MessageActivity" />
-        <activity android:name="com.julius.mytube.SettingsActivity" />
+        <activity android:name="com.julius.mytube.views.main.MainActivity" />
+        <activity android:name="com.julius.mytube.views.message.MessageActivity" />
+        <activity android:name="com.julius.mytube.views.settings.SettingsActivity" />
     </application>
 </manifest>
