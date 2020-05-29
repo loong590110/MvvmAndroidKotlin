@@ -15,16 +15,17 @@
             android:name="com.julius.mytube.views.splash.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
-                <data
-                    android:host="@string/host"
-                    android:path="@string/path_splash"
-                    android:scheme="@string/scheme" />
-
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <data
+                    android:host="@string/host"
+                    android:path="@string/path_splash"
+                    android:scheme="@string/scheme" />
             </intent-filter>
         </activity>
         <activity android:name="com.julius.mytube.views.main.MainActivity" />
