@@ -9,6 +9,8 @@
     </style>
 
     <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowFullscreen">true</item>
+        <item name="colorPrimaryDark">@color/colorBackground</item>
         <item name="android:windowBackground">@drawable/splash_image</item>
     </style>
 </resources>

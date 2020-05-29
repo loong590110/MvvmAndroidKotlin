@@ -144,14 +144,8 @@ fun FragmentActivity.toast(text: CharSequence, block: (Toast.() -> Unit)? = null
     }
 }
 
-fun Fragment.toast(text: String, block: (Toast.() -> Unit)? = null) {
-    Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).apply {
-        if (block != null) {
-            block()
-        }
-        show()
-    }
-}
+fun Fragment.toast(text: String, block: (Toast.() -> Unit)? = null) =
+        requireActivity().toast(text, block)
 //endregion
 
 //region view's visibility
