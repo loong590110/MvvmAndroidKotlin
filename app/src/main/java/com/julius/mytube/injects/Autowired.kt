@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import android.text.TextUtils
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import java.io.Serializable
 
 /**
@@ -187,6 +189,19 @@ object AutowiredHelper {
                     }
                 }
             }
+        }
+    }
+
+    fun inject(activity: FragmentActivity) {
+        inject(activity, activity.intent)
+        activity.supportFragmentManager.fragments.forEach { it ->
+            fun inject(fragment: Fragment) {
+                inject(fragment, fragment.arguments)
+                fragment.childFragmentManager.fragments.forEach {
+                    inject(it)
+                }
+            }
+            inject(it)
         }
     }
 }

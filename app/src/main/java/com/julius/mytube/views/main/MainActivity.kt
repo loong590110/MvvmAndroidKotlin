@@ -43,11 +43,11 @@ class MainActivity : AppCompatActivity() {
                 setupWithViewPager(viewPager)
             }
             viewPager.adapter = object : FragmentPagerAdapter(
-                supportFragmentManager,
-                BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+                    supportFragmentManager,
+                    BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
             ) {
                 override fun getItem(position: Int) =
-                    HomeFragment.newInstance(position)
+                        HomeFragment.newInstance(position)
 
                 override fun getCount() = 10
 
