@@ -77,7 +77,7 @@ private val lifecycleObserver by lazy {
 
 fun subscribe(owner: LifecycleOwner, type: Any, subscriber: (Any) -> Unit) {
     if (owner !is FragmentActivity && owner !is Fragment) {
-        throw IllegalArgumentException("owner must be instance of FragmentActivity Or Fragment")
+        throw IllegalArgumentException("The owner must be instance of FragmentActivity Or Fragment")
     }
     lifecycleObserver {
         if (subscribersOwner.containsKey(owner).not()) {
@@ -100,7 +100,7 @@ fun subscribe(owner: LifecycleOwner, type: Any, subscriber: (Any) -> Unit) {
 
 fun publish(owner: LifecycleOwner, type: Any, message: Any) {
     if (owner !is FragmentActivity && owner !is Fragment) {
-        throw IllegalArgumentException("owner must be instance of FragmentActivity Or Fragment")
+        throw IllegalArgumentException("The owner must be instance of FragmentActivity Or Fragment")
     }
     lifecycleObserver {
         subscribers[type]?.forEach {
