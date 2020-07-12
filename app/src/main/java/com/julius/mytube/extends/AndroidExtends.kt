@@ -1,5 +1,7 @@
 package com.julius.mytube.extends
 
+import android.app.Activity
+import android.content.Context
 import android.content.res.Resources
 import android.os.Handler
 import android.os.Looper
@@ -24,9 +26,9 @@ inline operator fun <T> T?.invoke(block: T.() -> Unit) = this?.apply(block)
 
 //region ui handler
 private val uiHandler by lazy { Handler(Looper.getMainLooper()) }
-fun FragmentActivity.runOnUiThread(delay: Long, block: () -> Unit) = run { uiHandler(delay, block) }
-fun Fragment.runOnUiThread(block: () -> Unit) = run { uiHandler(block) }
-fun Fragment.runOnUiThread(delay: Long, block: () -> Unit) = run { uiHandler(delay, block) }
+
+@JvmOverloads
+fun <T> T.runOnUiThread(delay: Long = 0, block: () -> Unit) = run { uiHandler(delay, block) }
 //endregion
 
 //region dp to px
@@ -34,12 +36,14 @@ private typealias dp2px = (Float) -> Int
 
 operator fun Float.invoke(dp: dp2px) = dp(this)
 operator fun Int.invoke(dp: dp2px) = dp(toFloat())
-val FragmentActivity.dp get() = dp2px(resources)
+val Activity.dp get() = dp2px(resources)
 val Fragment.dp get() = dp2px(resources)
+val Context.dp get() = dp2px(resources)
+val View.dp get() = dp2px(resources)
 private fun dp2px(resources: Resources?) = { dp: Float ->
     resources?.run {
         TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP, dp, displayMetrics
+            TypedValue.COMPLEX_UNIT_DIP, dp, displayMetrics
         ).toInt()
     } ?: 0
 }
@@ -84,7 +88,7 @@ fun subscribe(owner: LifecycleOwner, type: Any, subscriber: (Any) -> Unit) {
             owner.lifecycle.addObserver(lifecycleObserver)
         }
         val messageSubscriber =
-                MessageSubscriber(type, subscriber)
+            MessageSubscriber(type, subscriber)
         (subscribersOwner[owner] ?: LinkedList<MessageSubscriber>()) {
             add(messageSubscriber).also {
                 subscribersOwner[owner] = this
@@ -110,22 +114,22 @@ fun publish(owner: LifecycleOwner, type: Any, message: Any) {
 }
 
 inline fun <reified T : Any> FragmentActivity.subscribe(noinline subscriber: (T) -> Unit) =
-        @Suppress("UNCHECKED_CAST")
-        subscribe(this, T::class, subscriber as (Any) -> Unit)
+    @Suppress("UNCHECKED_CAST")
+    subscribe(this, T::class, subscriber as (Any) -> Unit)
 
 inline fun <reified T : Any> FragmentActivity.publish(message: T) =
-        publish(this, T::class, message)
+    publish(this, T::class, message)
 
 inline fun <reified T : Any> Fragment.subscribe(noinline subscriber: (T) -> Unit) =
-        @Suppress("UNCHECKED_CAST")
-        subscribe(this, T::class, subscriber as (Any) -> Unit)
+    @Suppress("UNCHECKED_CAST")
+    subscribe(this, T::class, subscriber as (Any) -> Unit)
 
 inline fun <reified T : Any> Fragment.publish(message: T) =
-        publish(this, T::class, message)
+    publish(this, T::class, message)
 //endregion
 
 //region toast
-fun FragmentActivity.toast(text: CharSequence, block: (Toast.() -> Unit)? = null) {
+fun FragmentActivity.toast(text: CharSequence?, block: (Toast.() -> Unit)? = null) {
     Toast.makeText(this, text, Toast.LENGTH_SHORT).apply {
         if (block != null) {
             block()
@@ -134,8 +138,8 @@ fun FragmentActivity.toast(text: CharSequence, block: (Toast.() -> Unit)? = null
     }
 }
 
-fun Fragment.toast(text: String, block: (Toast.() -> Unit)? = null) =
-        requireActivity().toast(text, block)
+fun Fragment.toast(text: CharSequence?, block: (Toast.() -> Unit)? = null) =
+    requireActivity().toast(text, block)
 //endregion
 
 //region view's visibility

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MyTube</string>
+    <string name="home">首页</string>
+    <string name="explore">探索</string>
+    <string name="subscriptions">订阅内容</string>
+    <string name="email">收件箱</string>
+    <string name="media">媒体库</string>
 </resources>
