@@ -31,7 +31,5 @@
             </intent-filter>
         </activity>
         <activity android:name="com.julius.mytube.views.main.MainActivity" />
-        <activity android:name="com.julius.mytube.views.message.MessageActivity" />
-        <activity android:name="com.julius.mytube.views.settings.SettingsActivity" />
     </application>
 </manifest>

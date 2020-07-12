@@ -13,7 +13,6 @@ import com.julius.mytube.databinding.FragmentMainBinding
 import com.julius.mytube.extends.inflate
 import com.julius.mytube.extends.invoke
 import com.julius.mytube.viewmodels.main.BottomNavigationViewModel
-import com.julius.mytube.viewmodels.main.TopNavigationViewModel
 import com.julius.mytube.views.home.HomeFragment
 
 class MainFragment : Fragment() {

@@ -39,8 +39,12 @@ inline fun <reified T : ViewDataBinding> Fragment.inflate(
         null, inflater ?: LayoutInflater.from(context), container, false
     ) as T
 
-@Suppress("EXTENSION_SHADOWED_BY_MEMBER")
-inline fun <reified T : ViewDataBinding> Activity.setContentView(
-    @LayoutRes layoutResId: Int
-): T =
-    DataBindingUtil.setContentView(this, layoutResId)
+inline fun <reified T : ViewDataBinding> Activity.setContentView(): T =
+    (T::class.java.getDeclaredMethod(
+        "inflate",
+        LayoutInflater::class.java
+    ).invoke(
+        null, LayoutInflater.from(this)
+    ) as T).apply {
+        setContentView(root)
+    }

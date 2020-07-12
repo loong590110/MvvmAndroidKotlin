@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         onSubscribe()
-        setContentView<ActivityMainBinding>(R.layout.activity_main)
+        setContentView<ActivityMainBinding>()
     }
 
     private fun onSubscribe() {
