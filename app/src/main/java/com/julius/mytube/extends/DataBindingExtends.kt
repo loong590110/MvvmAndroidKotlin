@@ -3,8 +3,6 @@ package com.julius.mytube.extends
 import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.annotation.LayoutRes
-import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 

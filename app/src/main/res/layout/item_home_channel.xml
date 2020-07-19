@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="text"
+            type="java.lang.String" />
+
+        <variable
+            name="icon"
+            type="int" />
+    </data>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/bg_item_home_channel"
+        android:drawablePadding="15dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:text="@{text}"
+        android:textColor="@color/colorWhite"
+        android:textSize="16.5sp"
+        app:channelIcon="@{icon}"
+        tools:drawableLeft="@drawable/ic_baseline_whatshot_24"
+        tools:text="时下流行" />
+</layout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/channel1"
+                layout="@layout/item_home_channel"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/item_home_channel_height"
+                android:layout_weight="1" />
+
+            <include
+                android:id="@+id/channel2"
+                layout="@layout/item_home_channel"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/item_home_channel_height"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/channel3"
+                layout="@layout/item_home_channel"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/item_home_channel_height"
+                android:layout_weight="1" />
+
+            <include
+                android:id="@+id/channel4"
+                layout="@layout/item_home_channel"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/item_home_channel_height"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <include
+                android:id="@+id/channel5"
+                layout="@layout/item_home_channel"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/item_home_channel_height"
+                android:layout_weight="1" />
+
+            <include
+                android:id="@+id/channel6"
+                layout="@layout/item_home_channel"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/item_home_channel_height"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

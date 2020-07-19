@@ -1,6 +1,7 @@
-package com.julius.mytube.views.home
+package com.julius.mytube.views.message
 
 import android.annotation.SuppressLint
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,31 +9,26 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.julius.mytube.databinding.FragmentHomeBinding
 import com.julius.mytube.events.HomeMessage
-import com.julius.mytube.extends.inflate
-import com.julius.mytube.extends.invoke
-import com.julius.mytube.extends.subscribe
-import com.julius.mytube.extends.toast
-import com.julius.mytube.injects.Autowired
+import com.julius.mytube.extends.*
 import com.julius.mytube.models.home.VideoInfo
 import com.julius.mytube.viewmodels.home.HomeViewModel
 import com.julius.mytube.viewmodels.main.TopNavigationViewModel
-import com.julius.mytube.views.viewholders.ItemHomeVideoViewHolder
+import com.julius.mytube.views.viewholders.ItemHomeVideoSmallViewHolder
 
 /**
  * Created by Developer Zailong Shi on 2020-01-06.
  */
-class HomeFragment : Fragment() {
+class MessageFragment : Fragment() {
 
     private val homeViewModel by viewModels<HomeViewModel>()
     private val topNavigationViewModel by activityViewModels<TopNavigationViewModel>()
 
     companion object {
-        fun newInstance(flag: Int) = HomeFragment()
+        fun newInstance(flag: Int) = MessageFragment()
             .apply {
                 Bundle().apply {
                     putInt("flag", flag)
@@ -46,30 +42,41 @@ class HomeFragment : Fragment() {
     ): View? {
         return inflate<FragmentHomeBinding>(inflater, container).apply {
             onSubscribe()
-            lifecycleOwner = this@HomeFragment.viewLifecycleOwner
+            lifecycleOwner = this@MessageFragment.viewLifecycleOwner
             recyclerView {
                 layoutManager = LinearLayoutManager(context)
-                addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+                addItemDecoration(object : RecyclerView.ItemDecoration() {
+                    override fun getItemOffsets(
+                        outRect: Rect,
+                        view: View,
+                        parent: RecyclerView,
+                        state: RecyclerView.State
+                    ) {
+                        outRect.top = 10(dp).also {
+                            outRect.bottom = it
+                        }
+                    }
+                })
                 val items = arrayListOf<VideoInfo?>()
                 adapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     override fun onCreateViewHolder(
                         parent: ViewGroup, viewType: Int
                     ): RecyclerView.ViewHolder {
-                        return ItemHomeVideoViewHolder(parent)
+                        return ItemHomeVideoSmallViewHolder(parent)
                     }
 
                     override fun getItemCount() = items.size * 100
 
                     @SuppressLint("SetTextI18n")
                     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-                        (holder as ItemHomeVideoViewHolder).apply {
+                        (holder as ItemHomeVideoSmallViewHolder).apply {
                             items[position % items.size]?.apply {
                                 onBindViewHolder(this, position)
                             }
                         }
                     }
                 }
-                homeViewModel.getHomeListData().observe(this@HomeFragment) {
+                homeViewModel.getHomeListData().observe(this@MessageFragment) {
                     adapter?.apply {
                         items.clear()
                         items.addAll(it?.toList() ?: emptyList())

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="filterTitle"
+            type="java.lang.String" />
+
+        <variable
+            name="selected"
+            type="boolean" />
+    </data>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="2.5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="2.5dp"
+        android:background="@drawable/bg_subscription_filter"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:minWidth="65dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:selected="@{selected}"
+        android:text="@{filterTitle}"
+        android:textColor="#fff"
+        android:textSize="15sp"
+        tools:text="全部" />
+
+</layout>

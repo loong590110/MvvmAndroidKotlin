@@ -19,7 +19,7 @@
     </fragment>
     <dialog
         android:id="@+id/searchFragment"
-        android:name="com.julius.mytube.views.SearchFragment"
+        android:name="com.julius.mytube.views.search.SearchFragment"
         android:label="SearchFragment">
         <argument
             android:name="position"

@@ -1,4 +1,4 @@
-package com.julius.mytube.views.home
+package com.julius.mytube.views.explore
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -17,22 +17,22 @@ import com.julius.mytube.extends.inflate
 import com.julius.mytube.extends.invoke
 import com.julius.mytube.extends.subscribe
 import com.julius.mytube.extends.toast
-import com.julius.mytube.injects.Autowired
 import com.julius.mytube.models.home.VideoInfo
 import com.julius.mytube.viewmodels.home.HomeViewModel
 import com.julius.mytube.viewmodels.main.TopNavigationViewModel
+import com.julius.mytube.views.viewholders.ItemHomeChannelsViewHolder
 import com.julius.mytube.views.viewholders.ItemHomeVideoViewHolder
 
 /**
  * Created by Developer Zailong Shi on 2020-01-06.
  */
-class HomeFragment : Fragment() {
+class ExploreFragment : Fragment() {
 
     private val homeViewModel by viewModels<HomeViewModel>()
     private val topNavigationViewModel by activityViewModels<TopNavigationViewModel>()
 
     companion object {
-        fun newInstance(flag: Int) = HomeFragment()
+        fun newInstance(flag: Int) = ExploreFragment()
             .apply {
                 Bundle().apply {
                     putInt("flag", flag)
@@ -46,30 +46,49 @@ class HomeFragment : Fragment() {
     ): View? {
         return inflate<FragmentHomeBinding>(inflater, container).apply {
             onSubscribe()
-            lifecycleOwner = this@HomeFragment.viewLifecycleOwner
+            lifecycleOwner = this@ExploreFragment.viewLifecycleOwner
             recyclerView {
-                layoutManager = LinearLayoutManager(context)
-                addItemDecoration(DividerItemDecoration(context, LinearLayoutManager.VERTICAL))
+                layoutManager =
+                    LinearLayoutManager(context)
+                addItemDecoration(
+                    DividerItemDecoration(
+                        context,
+                        LinearLayoutManager.VERTICAL
+                    )
+                )
                 val items = arrayListOf<VideoInfo?>()
                 adapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     override fun onCreateViewHolder(
                         parent: ViewGroup, viewType: Int
-                    ): RecyclerView.ViewHolder {
-                        return ItemHomeVideoViewHolder(parent)
-                    }
+                    ): RecyclerView.ViewHolder =
+                        when (viewType) {
+                            1 -> ItemHomeChannelsViewHolder(parent)
+                            else -> ItemHomeVideoViewHolder(parent)
+                        }
 
                     override fun getItemCount() = items.size * 100
 
+                    override fun getItemViewType(position: Int): Int =
+                        when (position) {
+                            0 -> 1
+                            else -> super.getItemViewType(position)
+                        }
+
                     @SuppressLint("SetTextI18n")
                     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-                        (holder as ItemHomeVideoViewHolder).apply {
-                            items[position % items.size]?.apply {
-                                onBindViewHolder(this, position)
-                            }
+                        when (holder) {
+                            is ItemHomeVideoViewHolder ->
+                                holder.apply {
+                                    items[position % items.size]?.apply {
+                                        onBindViewHolder(this, position)
+                                    }
+                                }
+                            is ItemHomeChannelsViewHolder ->
+                                holder.onBindViewHolder(position)
                         }
                     }
                 }
-                homeViewModel.getHomeListData().observe(this@HomeFragment) {
+                homeViewModel.getHomeListData().observe(this@ExploreFragment) {
                     adapter?.apply {
                         items.clear()
                         items.addAll(it?.toList() ?: emptyList())

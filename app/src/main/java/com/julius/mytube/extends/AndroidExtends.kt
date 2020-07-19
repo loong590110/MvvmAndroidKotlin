@@ -89,12 +89,12 @@ fun subscribe(owner: LifecycleOwner, type: Any, subscriber: (Any) -> Unit) {
         }
         val messageSubscriber =
             MessageSubscriber(type, subscriber)
-        (subscribersOwner[owner] ?: LinkedList<MessageSubscriber>()) {
+        (subscribersOwner[owner] ?: LinkedList()) {
             add(messageSubscriber).also {
                 subscribersOwner[owner] = this
             }
         }
-        (subscribers[type] ?: LinkedList<MessageSubscriber>()) {
+        (subscribers[type] ?: LinkedList()) {
             add(messageSubscriber).also {
                 subscribers[type] = this
             }

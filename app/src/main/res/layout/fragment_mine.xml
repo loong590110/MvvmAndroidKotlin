@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="java.util.List" />
+
+        <import type="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <variable
+            name="recentWatchHistories"
+            type="List&lt;com.julius.mytube.models.home.VideoInfo>" />
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="最近"
+                android:textColor="#666"
+                android:textSize="16sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:overScrollMode="never"
+                android:scrollbars="none"
+                app:linearLayoutManager="@{LinearLayoutManager.HORIZONTAL}"
+                app:recentWatchHistories="@{recentWatchHistories}" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="#eee" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginTop="10dp"
+                android:drawablePadding="20dp"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="历史记录"
+                android:textColor="#666"
+                android:textSize="16sp"
+                app:drawableHeight="@{19.5f}"
+                app:drawableLeft="@{@drawable/ic_history}"
+                app:drawableWidth="@{22.2f}"
+                tools:drawableLeft="@drawable/ic_history" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginTop="10dp"
+                android:drawablePadding="20dp"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="您的视频"
+                android:textColor="#666"
+                android:textSize="16sp"
+                app:drawableHeight="@{19.5f}"
+                app:drawableLeft="@{@drawable/ic_history}"
+                app:drawableWidth="@{22.2f}"
+                tools:drawableLeft="@drawable/ic_history" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginTop="10dp"
+                android:drawablePadding="20dp"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="购买的内容"
+                android:textColor="#666"
+                android:textSize="16sp"
+                app:drawableHeight="@{19.5f}"
+                app:drawableLeft="@{@drawable/ic_history}"
+                app:drawableWidth="@{22.2f}"
+                tools:drawableLeft="@drawable/ic_history" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginTop="10dp"
+                android:drawablePadding="20dp"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="稍后观看"
+                android:textColor="#666"
+                android:textSize="16sp"
+                app:drawableHeight="@{19.5f}"
+                app:drawableLeft="@{@drawable/ic_history}"
+                app:drawableWidth="@{22.2f}"
+                tools:drawableLeft="@drawable/ic_history" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="#eee" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:text="播放列表"
+                android:textColor="#666"
+                android:textSize="16sp" />
+
+            <include
+                layout="@layout/item_collection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+
+            <include
+                layout="@layout/item_collection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+
+            <include
+                layout="@layout/item_collection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+
+            <include
+                layout="@layout/item_collection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+
+            <include
+                layout="@layout/item_collection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+
+            <include
+                layout="@layout/item_collection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</layout>

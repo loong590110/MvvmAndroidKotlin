@@ -1,4 +1,4 @@
-package com.julius.mytube.views
+package com.julius.mytube.views.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
@@ -31,7 +32,9 @@ class SearchFragment : DialogFragment() {
             topNavigationViewModel = this@SearchFragment.topNavigationViewModel
                 .apply {
                     onSearch(viewLifecycleOwner) {
-                        findNavController().navigateUp()
+                        viewLifecycleOwner.lifecycle.currentState
+                            .takeIf { it.isAtLeast(Lifecycle.State.RESUMED) }
+                            ?.run { findNavController().navigateUp() }
                     }
                 }
             position = args.position

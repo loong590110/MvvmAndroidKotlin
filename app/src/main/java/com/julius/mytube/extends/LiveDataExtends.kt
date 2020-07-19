@@ -24,7 +24,7 @@ class MutexLiveData<P, N> {
     }
 
     fun postPositiveValue(value: P?) {
-        runOnUiThread { setPositiveValue(value) }
+        positiveLiveData.postValue(value)
     }
 
     fun getNegativeValue() = negativeLiveData.value
@@ -33,7 +33,7 @@ class MutexLiveData<P, N> {
     }
 
     fun postNegativeValue(value: N?) {
-        runOnUiThread { setNegativeValue(value) }
+        negativeLiveData.postValue(value)
     }
 
 //    fun observe(owner: LifecycleOwner, observer: (P) -> Unit): (observer: (N) -> Unit) -> Unit {
