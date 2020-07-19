@@ -13,3 +13,10 @@
 [6]: https://developer.android.com/topic/libraries/architecture/room
 [7]: https://developer.android.com/topic/libraries/architecture/workmanager
 [8]: https://developer.android.com/topic/libraries/architecture/paging
+
+屏幕截图
+--------------------
+
+<img src="screenshots/home_page.png" height="400" alt="Screenshot"/> <img src="screenshots/explore_page.png" height="400" alt="Screenshot"/>
+<img src="screenshots/subscriptions_page.png" height="400" alt="Screenshot"/> <img src="screenshots/message_page.png" height="400" alt="Screenshot"/>
+<img src="screenshots/mine_page.png" height="400" alt="Screenshot"/>
