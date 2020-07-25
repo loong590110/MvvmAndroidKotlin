@@ -3,6 +3,7 @@ package com.julius.mytube.extends
 import android.app.Activity
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.activity.ComponentActivity
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 
@@ -30,12 +31,15 @@ inline fun <reified T : ViewDataBinding> ViewGroup.inflate(
 inline fun <reified T : ViewDataBinding> Fragment.inflate(
     inflater: LayoutInflater? = null, container: ViewGroup?
 ): T =
-    T::class.java.getDeclaredMethod(
+    (T::class.java.getDeclaredMethod(
         "inflate",
         LayoutInflater::class.java, ViewGroup::class.java, Boolean::class.java
     ).invoke(
         null, inflater ?: LayoutInflater.from(context), container, false
-    ) as T
+    ) as T).let {
+        it.lifecycleOwner = this
+        it
+    }
 
 inline fun <reified T : ViewDataBinding> Activity.setContentView(): T =
     (T::class.java.getDeclaredMethod(
@@ -43,6 +47,10 @@ inline fun <reified T : ViewDataBinding> Activity.setContentView(): T =
         LayoutInflater::class.java
     ).invoke(
         null, LayoutInflater.from(this)
-    ) as T).apply {
-        setContentView(root)
+    ) as T).let {
+        setContentView(it.root)
+        if (this is ComponentActivity) {
+            it.lifecycleOwner = this
+        }
+        it
     }

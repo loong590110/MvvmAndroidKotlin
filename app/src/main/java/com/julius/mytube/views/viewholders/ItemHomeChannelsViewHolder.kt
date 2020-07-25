@@ -47,23 +47,41 @@ class ItemHomeChannelsViewHolder(
                     "icon" to R.drawable.ic_baseline_whatshot_24,
                     "text" to "时尚和美容",
                     "tint" to 0xff987997.toInt()
+                ),
+                mapOf(
+                    "icon" to R.drawable.ic_baseline_whatshot_24,
+                    "text" to "学习",
+                    "tint" to 0xff987997.toInt()
+                ),
+                mapOf(
+                    "icon" to R.drawable.ic_baseline_whatshot_24,
+                    "text" to "直播",
+                    "tint" to 0xfff92853.toInt()
                 )
             ).let {
-                arrayOf(channel1, channel2, channel3, channel4, channel5, channel6)
-                    .apply {
-                        for (i in this.indices) {
-                            this[i].apply {
-                                it[i].run {
-                                    icon = this["icon"] as Int
-                                    text = this["text"] as String
-                                    root.background.setColorFilter(
-                                        this["tint"] as Int,
-                                        PorterDuff.Mode.MULTIPLY
-                                    )
-                                }
+                arrayOf(
+                    channel1,
+                    channel2,
+                    channel3,
+                    channel4,
+                    channel5,
+                    channel6,
+                    channel7,
+                    channel8
+                ).apply {
+                    for (i in this.indices) {
+                        this[i].apply {
+                            it[i].run {
+                                icon = this["icon"] as Int
+                                text = this["text"] as String
+                                root.background.setColorFilter(
+                                    this["tint"] as Int,
+                                    PorterDuff.Mode.MULTIPLY
+                                )
                             }
                         }
                     }
+                }
             }
         }
     }

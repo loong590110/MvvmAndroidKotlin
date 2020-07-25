@@ -43,9 +43,9 @@ class MutexLiveData<P, N> {
 //        }
 //    }
 
-    fun observe(owner: LifecycleOwner, observer: (P?) -> Unit): NegativeObserver<N?> {
+    fun observe(owner: LifecycleOwner, observer: (P?) -> Unit): NegativeObservable<N?> {
         positiveLiveData.observe(owner, Observer(observer))
-        return NegativeObserver(owner, negativeLiveData)
+        return NegativeObservable(owner, negativeLiveData)
     }
 
 //    fun observe(owner: LifecycleOwner, pObserver: (P) -> Unit, nObserver: (N) -> Unit) {
@@ -53,7 +53,7 @@ class MutexLiveData<P, N> {
 //        negativeLiveData.observe(owner, Observer(nObserver))
 //    }
 
-    class NegativeObserver<N>(
+    class NegativeObservable<N>(
         private val owner: LifecycleOwner,
         private val negativeLiveData: MutableLiveData<N?>
     ) {

@@ -16,7 +16,7 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:background="@drawable/bg_item_home_channel"
         android:drawablePadding="15dp"
         android:gravity="center_vertical"
