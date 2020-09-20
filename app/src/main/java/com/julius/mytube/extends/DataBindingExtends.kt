@@ -11,8 +11,8 @@ import androidx.fragment.app.Fragment
  * build.gradle:
  * android{
  *      ...
- *      dataBinding {
- *          enabled true
+ *      buildFeatures {
+ *          dataBinding = true
  *      }
  * }
  *

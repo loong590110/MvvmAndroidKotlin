@@ -17,7 +17,6 @@ import com.julius.mytube.extends.inflate
 import com.julius.mytube.extends.invoke
 import com.julius.mytube.extends.subscribe
 import com.julius.mytube.extends.toast
-import com.julius.mytube.injects.Autowired
 import com.julius.mytube.models.home.VideoInfo
 import com.julius.mytube.viewmodels.home.HomeViewModel
 import com.julius.mytube.viewmodels.main.TopNavigationViewModel
