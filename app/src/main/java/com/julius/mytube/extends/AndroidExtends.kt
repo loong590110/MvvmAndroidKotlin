@@ -50,7 +50,11 @@ private fun dp2px(resources: Resources?) = { dp: Float ->
 //endregion
 
 //region event bus
-data class MessageSubscriber(val type: Any, val subscriber: (Any) -> Unit)
+data class MessageSubscriber(
+    var owner: LifecycleOwner?,
+    val type: Any,
+    val subscriber: (Any) -> Unit
+)
 
 private val lifecycleObserver by lazy {
     object : LifecycleObserver {
@@ -65,7 +69,7 @@ private val lifecycleObserver by lazy {
                     forEach { subscriber ->
                         subscribers.let {
                             it[subscriber.type] {
-                                remove(subscriber)
+                                remove(subscriber.apply { this.owner = null })
                                 if (size == 0) {
                                     it.remove(subscriber.type)
                                 }
@@ -87,8 +91,7 @@ fun subscribe(owner: LifecycleOwner, type: Any, subscriber: (Any) -> Unit) {
         if (subscribersOwner.containsKey(owner).not()) {
             owner.lifecycle.addObserver(lifecycleObserver)
         }
-        val messageSubscriber =
-            MessageSubscriber(type, subscriber)
+        val messageSubscriber = MessageSubscriber(owner, type, subscriber)
         (subscribersOwner[owner] ?: LinkedList()) {
             add(messageSubscriber).also {
                 subscribersOwner[owner] = this
@@ -108,7 +111,11 @@ fun publish(owner: LifecycleOwner, type: Any, message: Any) {
     }
     lifecycleObserver {
         subscribers[type]?.forEach {
-            uiHandler { it.subscriber(message) }
+            uiHandler {
+                if (it.owner != null) {
+                    it.subscriber(message)
+                }
+            }
         }
     }
 }
@@ -129,17 +136,21 @@ inline fun <reified T : Any> Fragment.publish(message: T) =
 //endregion
 
 //region toast
-fun FragmentActivity.toast(text: CharSequence?, block: (Toast.() -> Unit)? = null) {
-    Toast.makeText(this, text, Toast.LENGTH_SHORT).apply {
-        if (block != null) {
-            block()
+fun Context?.toast(text: CharSequence?, block: (Toast.() -> Unit)? = null) =
+    this?.run {
+        if (text.isNullOrEmpty().not()) {
+            Toast.makeText(this@toast, text, Toast.LENGTH_SHORT)
+                .apply {
+                    if (block != null) {
+                        block()
+                    }
+                    show()
+                }
         }
-        show()
     }
-}
 
-fun Fragment.toast(text: CharSequence?, block: (Toast.() -> Unit)? = null) =
-    requireActivity().toast(text, block)
+fun Fragment?.toast(text: CharSequence?, block: (Toast.() -> Unit)? = null) =
+    this?.context?.toast(text, block)
 //endregion
 
 //region view's visibility

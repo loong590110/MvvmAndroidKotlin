@@ -12,7 +12,7 @@ import com.julius.mytube.extends.invoke
  * Created by Developer Zailong Shi on 2020-01-14.
  */
 class NavigationBar @JvmOverloads constructor(
-        context: Context?, attrs: AttributeSet? = null, defStyleAttr: Int = 0
+    context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
     val binding = inflate<NavigationBarBinding>()

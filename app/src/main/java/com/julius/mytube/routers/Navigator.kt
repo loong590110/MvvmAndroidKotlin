@@ -8,7 +8,7 @@ import android.net.Uri
 /**
  * Created by Developer Zailong Shi on 2020-01-07.
  */
-class Navigation private constructor(private val context: Context) {
+class Navigator private constructor(private val context: Context) {
 
     companion object {
         private lateinit var route: Route
@@ -17,16 +17,14 @@ class Navigation private constructor(private val context: Context) {
             Companion.route = route
         }
 
-        fun from(context: Context) = Navigation(context)
-    }
-
-    @JvmOverloads
-    fun to(path: String, requestCode: Int = -1) {
-        route.targetIntent(context, Uri.parse(path))?.apply {
-            if (context is Activity) {
-                context.startActivityForResult(this, requestCode)
-                val finish = getStringExtra("finish")
-                if (finish == "true") context.finish()
+        @JvmOverloads
+        fun navigate(context: Context, path: String, requestCode: Int = -1) {
+            route.targetIntent(context, Uri.parse(path))?.apply {
+                if (context is Activity) {
+                    context.startActivityForResult(this, requestCode)
+                    val finish = getStringExtra("finish")
+                    if (finish == "true") context.finish()
+                }
             }
         }
     }

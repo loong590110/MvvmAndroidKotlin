@@ -85,6 +85,8 @@ class HomeFragment : Fragment() {
                                 items.addAll(it?.toList() ?: emptyList())
                                 notifyDataSetChanged()
                             }
+                        }.observe {
+                            toast(it?.message)
                         }
                     }
                 }

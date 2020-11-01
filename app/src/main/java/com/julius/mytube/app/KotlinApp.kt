@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
 import com.facebook.drawee.backends.pipeline.Fresco
-import com.julius.mytube.routers.Navigation
+import com.julius.mytube.routers.Navigator
 import com.julius.mytube.routers.RouteTable
 
 /**
@@ -24,7 +24,7 @@ class KotlinApp : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        Navigation.init(RouteTable())
+        Navigator.init(RouteTable())
         Fresco.initialize(this)
         registerActivityLifecycleCallbacks(AutowaredActivityLifecycleCallbacks())
     }
