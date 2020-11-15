@@ -197,9 +197,12 @@ object AutowiredHelper {
         activity.supportFragmentManager.fragments.forEach { it ->
             fun inject(fragment: Fragment) {
                 inject(fragment, fragment.arguments)
-                fragment.childFragmentManager.fragments.forEach {
-                    inject(it)
-                }
+                fragment.takeIf { it.isAdded }
+                    ?.childFragmentManager
+                    ?.fragments
+                    ?.forEach {
+                        inject(it)
+                    }
             }
             inject(it)
         }

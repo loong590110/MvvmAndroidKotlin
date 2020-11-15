@@ -36,10 +36,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                android:orientation="horizontal"
                 android:overScrollMode="never"
                 android:scrollbars="none"
-                app:linearLayoutManager="@{LinearLayoutManager.HORIZONTAL}"
-                app:recentWatchHistories="@{recentWatchHistories}" />
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:recentWatchHistories="@{recentWatchHistories}"
+                tools:listitem="@layout/item_home_video_middle" />
 
             <View
                 android:layout_width="match_parent"

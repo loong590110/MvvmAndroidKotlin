@@ -13,6 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="design_width_in_dp"
+            android:value="390" />
+        <meta-data
+            android:name="design_height_in_dp"
+            android:value="640" />
+
         <activity
             android:name="com.julius.mytube.views.splash.SplashActivity"
             android:theme="@style/SplashTheme">

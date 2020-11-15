@@ -46,12 +46,10 @@ class SubscriptionFragment : Fragment() {
     ): View? {
         return inflate<FragmentSubscriptionBinding>(inflater, container).apply {
             onSubscribe()
-            lifecycleOwner = this@SubscriptionFragment.viewLifecycleOwner
             ItemHomeSubscriptionsViewHolder(headerView.root as ViewGroup, headerView)
                 .onBindViewHolder(0)
             recyclerView {
-                layoutManager =
-                    LinearLayoutManager(context)
+                layoutManager = LinearLayoutManager(context)
                 addItemDecoration(
                     DividerItemDecoration(
                         context,

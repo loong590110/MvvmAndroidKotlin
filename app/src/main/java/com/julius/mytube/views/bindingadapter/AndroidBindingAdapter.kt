@@ -28,11 +28,3 @@ fun setDrawableLeft(view: TextView, drawable: Drawable, width: Float = 0f, heigh
         }
     }
 }
-
-@BindingAdapter("linearLayoutManager")
-fun setLinearLayoutManager(view: RecyclerView, orientation: Int) {
-    LinearLayoutManager(view.context, orientation, false)
-        .apply {
-            view.layoutManager = this
-        }
-}
