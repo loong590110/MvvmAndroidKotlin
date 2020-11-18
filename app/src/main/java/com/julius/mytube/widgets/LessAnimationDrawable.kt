@@ -149,6 +149,14 @@ class LessAnimationDrawable private constructor(
             }
         }
 
+        override fun getIntrinsicWidth(): Int {
+            return drawable?.intrinsicWidth ?: super.getIntrinsicWidth()
+        }
+
+        override fun getIntrinsicHeight(): Int {
+            return drawable?.intrinsicHeight ?: super.getIntrinsicHeight()
+        }
+
         override fun setAlpha(alpha: Int) {
             setAlpha(alpha)
             val d = drawable
