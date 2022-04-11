@@ -6,8 +6,9 @@
 
     <application
         android:name="com.julius.mytube.app.KotlinApp"
-        android:allowBackup="true"
-        android:fullBackupContent="@xml/backup_descriptor"
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -22,6 +23,7 @@
 
         <activity
             android:name="com.julius.mytube.views.splash.SplashActivity"
+            android:exported="true"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

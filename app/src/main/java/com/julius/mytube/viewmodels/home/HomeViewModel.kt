@@ -4,37 +4,25 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.julius.mytube.exception.InvalidException
 import com.julius.mytube.extends.MutexLiveData
-import com.julius.mytube.injects.DaggerHomeComponent
-import com.julius.mytube.injects.HomeModule
 import com.julius.mytube.models.home.HomeModel
 import com.julius.mytube.models.home.VideoInfo
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.inject.Inject
 
 /**
  * Created by Developer Zailong Shi on 2020/5/29.
  */
 class HomeViewModel : ViewModel() {
 
-    private var homeModel: HomeModel? = null
-
-    @Inject
-    fun setHomeModel(homeModel: HomeModel) {
-        this.homeModel = homeModel
-    }
-
-    init {
-        DaggerHomeComponent.builder().homeModule(HomeModule()).build().inject(this)
-    }
+    private var homeModel: HomeModel = HomeModel()
 
     fun getHomeListData() = MutexLiveData<List<VideoInfo?>?, InvalidException?>()
         .apply {
             viewModelScope.launch {
                 val data = coroutineScope {
-                    homeModel?.let {
+                    homeModel.let {
                         arrayListOf<VideoInfo?>(
                             VideoInfo(
                                 title = "【这就是中国】学不了中国防疫，这次轮到西方国家讲“国情”了",

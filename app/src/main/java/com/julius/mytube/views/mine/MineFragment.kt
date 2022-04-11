@@ -27,7 +27,7 @@ class MineFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         return inflate<FragmentMineBinding>(inflater, container).apply {
             lifecycleOwner = viewLifecycleOwner
             homeViewModel.getHomeListData().observe(this@MineFragment) {

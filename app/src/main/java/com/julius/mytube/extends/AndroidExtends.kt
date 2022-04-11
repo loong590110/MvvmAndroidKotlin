@@ -10,10 +10,8 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.OnLifecycleEvent
 import java.util.LinkedList
 import kotlin.collections.LinkedHashMap
 
@@ -57,12 +55,11 @@ data class MessageSubscriber(
 )
 
 private val lifecycleObserver by lazy {
-    object : LifecycleObserver {
+    object : DefaultLifecycleObserver {
         val subscribersOwner = LinkedHashMap<LifecycleOwner, LinkedList<MessageSubscriber>>()
         val subscribers = LinkedHashMap<Any, LinkedList<MessageSubscriber>>()
 
-        @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-        fun onUnsubscribe(owner: LifecycleOwner) {
+        private fun onUnsubscribe(owner: LifecycleOwner) {
             owner.lifecycle.removeObserver(this)
             subscribersOwner.let { it ->
                 it[owner] {
@@ -79,6 +76,11 @@ private val lifecycleObserver by lazy {
                 }
                 it.remove(owner)
             }
+        }
+
+        override fun onDestroy(owner: LifecycleOwner) {
+            super.onDestroy(owner)
+            onUnsubscribe(owner)
         }
     }
 }
